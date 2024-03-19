@@ -1,0 +1,36 @@
+package multiThreading;
+
+class client
+{
+	int availableBalence=20000;
+	int withdrawBalence;
+
+	public client(int withdrawBalence)
+	{
+		this.withdrawBalence=withdrawBalence;
+	}
+}
+public class BankingApplication {
+	public static void main(String[] args) {
+		client c1=new client(20000);
+		Runnable r1=()->
+		{
+			String name=null;
+			if(c1.withdrawBalence<=c1.availableBalence)
+			{
+				name=Thread.currentThread().getName();
+				System.out.println(c1.withdrawBalence+" amount withdraw by :"+name);
+			c1.availableBalence=c1.availableBalence-c1.withdrawBalence;
+			}
+			else
+			{
+				name=Thread.currentThread().getName();
+				System.err.println("Sorry"+name+"insufficient balence");
+			}
+		};
+				Thread t1=new Thread(r1,"Virat");
+				Thread t2=new Thread(r1,"Rohit");
+				
+				t1.start();t2.start();
+			}
+		}
